@@ -1,0 +1,11 @@
+app: support-docs-test-ey
+name: support-docs-test
+component: website
+
+inputs:
+  src:
+    src: ./pages
+    hook: npm run build
+    dist: ./out
+  region: us-west-2
+  bucketName: yoloooo
