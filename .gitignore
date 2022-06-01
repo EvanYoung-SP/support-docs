@@ -44,3 +44,7 @@ public/content
 
 # Netlify
 /.netlify/
+
+# Serverless Framework
+.serverless/
+.serverless_nextjs/
