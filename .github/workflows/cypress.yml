@@ -24,5 +24,6 @@ jobs:
         with:
           build: npm run build
           start: npm start
+          config-file: cypress.config.ts
         env:
           ENV: test
