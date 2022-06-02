@@ -1,0 +1,35 @@
+supportDocsTest:
+  component: '@sls-next/serverless-component'
+  inputs:
+    tag:
+      {
+        service: 'support-docs',
+        product: 'shared',
+        cogs: '0',
+        team: 'front-end',
+        role: 'app',
+        environment: 'tst',
+      }
+    bucketTags:
+      {
+        service: 'support-docs',
+        product: 'shared',
+        cogs: '0',
+        team: 'front-end',
+        role: 'app',
+        environment: 'tst',
+      }
+    cloudfront:
+      tags:
+        service: 'support-docs'
+        product: 'shared'
+        cogs: '0'
+        team: 'front-end'
+        role: 'app'
+        environment: 'tst'
+# npm plugins installed locally to get this above deploy working with the serverless component
+#"@sls-next/aws-cloudfront": "^3.7.0",
+#"@sls-next/aws-lambda": "^3.7.0",
+#"@sls-next/aws-sqs": "^3.7.0",
+#"@sls-next/domain": "^3.7.0",
+#"@sls-next/serverless-component": "^3.7.0",

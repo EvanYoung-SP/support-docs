@@ -33,6 +33,7 @@
     "@sentry/react": "^6.13.3",
     "@sentry/tracing": "^6.13.3",
     "@sentry/webpack-plugin": "^1.18.2",
+    "@sls-next/serverless-component": "^3.7.0",
     "@sparkpost/design-tokens": "^6.1.0",
     "@sparkpost/matchbox": "^6.1.0",
     "@sparkpost/matchbox-icons": "^6.1.0",
