@@ -1,0 +1,33 @@
+name: Deploy Preview
+
+on:
+  push:
+    branches-ignore:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: GitHub Refs
+        uses: rlespinasse/github-slug-action@v3.x
+
+      - run: npm install
+      - run: npm run build
+
+      - name: Serverless Deploy
+        id: serverless_deploy
+        run: npx serverless deploy --stage $GITHUB_REF_SLUG_URL
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          #SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
