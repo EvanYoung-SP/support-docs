@@ -1,3 +1,5 @@
+export {}; // because of -isolatedModules
+
 describe('Sub section page', () => {
   describe('index page in sub section', () => {
     it('Should display without error', () => {
