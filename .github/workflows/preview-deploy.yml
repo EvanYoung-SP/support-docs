@@ -1,4 +1,4 @@
-name: Deploy Preview
+name: Preview Deploy
 
 on:
   #push:
