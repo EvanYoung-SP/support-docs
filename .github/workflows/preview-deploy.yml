@@ -22,38 +22,63 @@ jobs:
       - name: GitHub Refs
         uses: rlespinasse/github-slug-action@v3.x
 
-      - name: Cache Node Modules & Next Build
-        id: cache-node-modules-next
-        uses: actions/cache@v3
-        with:
-          path: |
-            ${{ github.workspace }}/node_modules
-            ${{ github.workspace }}/.next/cache
-          # Generate a new cache whenever packages or source files change.
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js') }}
-          # If source files changed but packages didn't, rebuild from a prior cache.
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+      - name: Output
+        run: |
+          echo "Partial variables"
+          echo "   repository owner    : ${{ env.GITHUB_REPOSITORY_OWNER_PART }}"
+          echo "   repository name     : ${{ env.GITHUB_REPOSITORY_NAME_PART }}"
+          echo "Slug variables"
+          echo "   repository          : ${{ env.GITHUB_REPOSITORY_SLUG }}"
+          echo "   repository owner    : ${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG }}"
+          echo "   repository name     : ${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG }}"
+          echo "   ref                 : ${{ env.GITHUB_REF_SLUG }}"
+          echo "   head ref            : ${{ env.GITHUB_HEAD_REF_SLUG }}"
+          echo "   base ref            : ${{ env.GITHUB_BASE_REF_SLUG }}"
+          echo "   event ref           : ${{ env.GITHUB_EVENT_REF_SLUG }}"
+          echo "Slug URL variables"
+          echo "   repository          : ${{ env.GITHUB_REPOSITORY_SLUG_URL }}"
+          echo "   repository owner    : ${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG_URL }}"
+          echo "   repository name     : ${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG_URL }}"
+          echo "   ref                 : ${{ env.GITHUB_REF_SLUG_URL }}"
+          echo "   head ref            : ${{ env.GITHUB_HEAD_REF_SLUG_URL }}"
+          echo "   base ref            : ${{ env.GITHUB_BASE_REF_SLUG_URL }}"
+          echo "   event ref           : ${{ env.GITHUB_EVENT_REF_SLUG_URL }}"
+          echo "Short SHA variables"
+          echo "   sha                 : ${{ env.GITHUB_SHA_SHORT }}"
+          echo "   pull request sha    : ${{ env.GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}"
 
-      - name: Install Dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm install
+      #- name: Cache Node Modules & Next Build
+      #  id: cache-node-modules-next
+      #  uses: actions/cache@v3
+      #  with:
+      #    path: |
+      #      ${{ github.workspace }}/node_modules
+      #      ${{ github.workspace }}/.next/cache
+      #    # Generate a new cache whenever packages or source files change.
+      #    key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js') }}
+      #    # If source files changed but packages didn't, rebuild from a prior cache.
+      #    restore-keys: |
+      #      ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
 
-      - name: Run Build
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm run build
+      #- name: Install Dependencies
+      #  if: steps.cache.outputs.cache-hit != 'true'
+      #  run: npm install
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+      #- name: Run Build
+      #  if: steps.cache.outputs.cache-hit != 'true'
+      #  run: npm run build
 
-      - name: Serverless Deploy
-        id: serverless_deploy
-        run: npx sls --stage $GITHUB_REF_SLUG_URL
-        #env:
-        #  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        #  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        #SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
+      #- name: Configure AWS Credentials
+      #  uses: aws-actions/configure-aws-credentials@v1
+      #  with:
+      #    aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #    aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #    aws-region: us-east-1
+
+      #- name: Serverless Deploy
+      #  id: serverless_deploy
+      #  run: npx sls --stage $GITHUB_REF_SLUG
+      #env:
+      #  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
