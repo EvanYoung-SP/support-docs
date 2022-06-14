@@ -1,3 +1,6 @@
+plugins:
+  - serverless-s3-remover
+
 supportDocsTest:
   component: '@sls-next/serverless-component'
   inputs:
